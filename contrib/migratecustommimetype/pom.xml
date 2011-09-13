@@ -78,12 +78,12 @@
     <dependency>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.core</artifactId>
-      <version>vcam_sparsemapcontent_001</version>
+      <version>0.0.1.vcam_sparsemapcontent</version>
     </dependency>
     <dependency>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.solr</artifactId>
-      <version>vcam_solr_001</version>
+      <version>0.0.1.vcam_solr</version>
     </dependency>
     <dependency>
       <groupId>org.apache.solr</groupId>

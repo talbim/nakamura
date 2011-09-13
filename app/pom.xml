@@ -28,7 +28,7 @@
     <description> Standalone Launchpad Java Application. Everything needed to run the Launchpad is
     included in a single JAR file. </description>
     <properties>
-      <ux>1.0.0</ux>
+      <ux>0.0.1.vcam_3akai-ux</ux>
     </properties>
 
     <build>

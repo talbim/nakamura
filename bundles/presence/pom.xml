@@ -62,7 +62,7 @@
     <dependency>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.core</artifactId>
-      <version>vcam_sparsemapcontent_001</version>
+      <version>0.0.1.vcam_sparsemapcontent</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
