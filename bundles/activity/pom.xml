@@ -74,7 +74,7 @@
     <dependency>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.solr</artifactId>
-      <version>1.0</version>
+      <version>vcam_solr_001</version>
     </dependency>
     <dependency>
       <groupId>org.sakaiproject.nakamura</groupId>
