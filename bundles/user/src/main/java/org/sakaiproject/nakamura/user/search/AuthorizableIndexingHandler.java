@@ -72,6 +72,7 @@ public class AuthorizableIndexingHandler implements IndexingHandler {
   private static final Map<String, String> USER_WHITELISTED_PROPS;
   static {
     Builder<String, String> builder = ImmutableMap.builder();
+    builder.put("name", "name");
     builder.put(UserConstants.USER_FIRSTNAME_PROPERTY, "firstName");
     builder.put(UserConstants.USER_LASTNAME_PROPERTY, "lastName");
     builder.put(UserConstants.USER_EMAIL_PROPERTY, "email");
