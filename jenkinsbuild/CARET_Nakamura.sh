@@ -16,8 +16,15 @@ if [ "${BUILD_STEP}" = "pre" ] ; then
 else
     if [ "${BUILD_STEP}" = "post" ] ; then
         echo "INFO: Running post build setup for version: ${VERSION}";
-        NAME="org/sakaiproject/nakamura/org.sakaiproject.nakamura.app"
         URL="maven2.caret.cam.ac.uk"
+        # Push out the app pom/jar:
+        NAME="org/sakaiproject/nakamura/org.sakaiproject.nakamura.app"
+        echo "INFO: Making directory /var/www/${URL}/htdocs/${NAME}/${VERSION} on ${URL}";
+        ssh ${URL} "mkdir -p /var/www/${URL}/htdocs/${NAME}/${VERSION}";
+        echo "INFO: Synching ~/.m2/repository/${NAME}/${VERSION} to ${URL}:/var/www/${URL}/htdocs/${NAME}/";
+        rsync -av --delete ~/.m2/repository/${NAME}/${VERSION} ${URL}:/var/www/${URL}/htdocs/${NAME}/
+        # Push out the base pom/jar:
+        NAME="org/sakaiproject/nakamura/base"
         echo "INFO: Making directory /var/www/${URL}/htdocs/${NAME}/${VERSION} on ${URL}";
         ssh ${URL} "mkdir -p /var/www/${URL}/htdocs/${NAME}/${VERSION}";
         echo "INFO: Synching ~/.m2/repository/${NAME}/${VERSION} to ${URL}:/var/www/${URL}/htdocs/${NAME}/";
