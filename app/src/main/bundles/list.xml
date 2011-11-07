@@ -462,12 +462,12 @@ KERN-1187
         <bundle>
             <groupId>org.sakaiproject.nakamura</groupId>
             <artifactId>org.sakaiproject.nakamura.core</artifactId>
-            <version>0.0.1.vcam_sparsemapcontent</version>
+            <version>0.1.1.vcam_sparsemapcontent</version>
         </bundle>
         <bundle>
             <groupId>org.sakaiproject.nakamura</groupId>
             <artifactId>org.sakaiproject.nakamura.solr</artifactId>
-            <version>1.0.1</version>
+            <version>0.1.1.vcam_solr</version>
         </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
