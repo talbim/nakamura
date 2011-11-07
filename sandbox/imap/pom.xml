@@ -5,11 +5,11 @@
   <parent>
     <artifactId>base</artifactId>
     <groupId>org.sakaiproject.nakamura</groupId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
   </parent>
   <groupId>org.sakaiproject.nakamura</groupId>
   <artifactId>org.sakaiproject.nakamura.imap</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <packaging>bundle</packaging>
   <name>Sakai Nakamura :: JAMES IMAP Server</name>
   <build>

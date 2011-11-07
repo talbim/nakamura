@@ -5,12 +5,12 @@
   <parent>
     <artifactId>base</artifactId>
     <groupId>org.sakaiproject.nakamura</groupId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <relativePath>../../pom.xml</relativePath>
   </parent>
   <groupId>org.sakaiproject.nakamura</groupId>
   <artifactId>org.sakaiproject.nakamura.profile</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <packaging>bundle</packaging>
   <name>Sakai Nakamura :: Profile Bundle</name>
   <build>
@@ -55,7 +55,6 @@
     <dependency>
       <groupId>org.apache.sling</groupId>
       <artifactId>org.apache.sling.commons.json</artifactId>
-      <version>2.0.5-20100823</version>
     </dependency>
     <dependency>
       <groupId>org.apache.sling</groupId>
@@ -73,36 +72,33 @@
     <dependency>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.doc</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1</version>
     </dependency>
     <dependency>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.utils</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.resource</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.solr</artifactId>
-      <version>0.0.1.vcam_solr</version>
-      <scope>provided</scope>
     </dependency>	  
     <dependency>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.core</artifactId>
-      <version>0.0.1.vcam_sparsemapcontent</version>
       <scope>provided</scope>
     </dependency>	  
     <dependency>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.user</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1</version>
       <scope>provided</scope>
     </dependency>
     <!--  OSGI  -->

@@ -1,4 +1,4 @@
-/*
+/**
  * Licensed to the Sakai Foundation (SF) under one
  * or more contributor license agreements. See the NOTICE file
  * distributed with this work for additional information
@@ -74,7 +74,7 @@ public class AuthorizableIndexingHandlerTest {
   @Test
   public void delete() {
     Hashtable<String, Object> props = new Hashtable<String, Object>();
-    props.put("userid", "user1");
+    props.put("path", "user1");
     Event event = new Event(StoreListener.DELETE_TOPIC, props);
 
     Collection<String> queries = handler.getDeleteQueries(repoSession, event);

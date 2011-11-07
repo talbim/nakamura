@@ -7,9 +7,10 @@ require 'net/http/post/multipart'
 require '../kerns/ruby-lib-dir.rb'
 require 'sling/sling'
 require 'sling/users'
+require 'sling/full_group_creator'
 require 'sling/file'
 require 'sling/contacts'
-require './full_group_creator'
+
 include SlingInterface
 include SlingUsers
 include SlingFile

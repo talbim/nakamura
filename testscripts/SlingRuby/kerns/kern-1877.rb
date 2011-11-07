@@ -46,7 +46,6 @@ class TC_Kern1877Test < Test::Unit::TestCase
 	contentpath = @s.url_for("/p/#{contentid}")
 
 	@authz.grant("/p/#{contentid}","everyone","jcr:read" => "granted")
-	@authz.grant("/p/#{contentid}","anonymous","jcr:read" => "granted")
 
 	# Add three activity notes.
     res = @s.execute_post("#{contentpath}.html", { "testing" => "testvalue" })
@@ -58,7 +57,7 @@ class TC_Kern1877Test < Test::Unit::TestCase
     assert_equal(json["testing"], "testvalue", "Looks like the property was not written Got #{res.body}")
     
 	add_activity(contentpath, "status", "default", "First activity #{m}", false)
-	add_activity(contentpath, "status", "default", "Second activity #{m}", true)
+	add_activity(contentpath, "status", "default", "Second activity #{m}", false)
 	add_activity(contentpath, "status", "default", "Third activity #{m}", false)
 
     wait_for_indexer()
@@ -111,7 +110,7 @@ class TC_Kern1877Test < Test::Unit::TestCase
 		 end
     end
     assert_equal(false,firstActivity)
-    assert_equal(true,secondActivity)
+    assert_equal(false,secondActivity)
     assert_equal(false,thirdActivity)
   end
 
