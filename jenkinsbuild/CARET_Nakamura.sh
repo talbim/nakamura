@@ -8,7 +8,7 @@ BUILD_STEP=${1};
 
 if [ "${BUILD_STEP}" = "pre" ] ; then
     echo "INFO: Running pre flight check for version: ${VERSION}";
-    CHECK_VERSION=`grep ${VERSION} pom.xml`;
+    CHECK_VERSION=`grep ${VERSION} app/pom.xml`;
     if [ "${?}" != "0" ] ; then
         echo "ERROR: Version \"${VERSION}\" not found in pom.xml, aborting!"
         exit 1;
