@@ -1197,7 +1197,7 @@
       <dependency>
         <groupId>org.sakaiproject.nakamura</groupId>
         <artifactId>org.sakaiproject.nakamura.solr</artifactId>
-        <version>1.3-20111205</version>
+        <version>0.2.1.vcam_solr</version>
         <scope>provided</scope>
       </dependency>
 
