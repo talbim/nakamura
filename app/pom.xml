@@ -22,7 +22,7 @@
 
     <artifactId>org.sakaiproject.nakamura.app</artifactId>
     <packaging>jar</packaging>
-    <version>0.2.2.vcam_nakamura</version>
+    <version>1.2.2.vcam_nakamura</version>
 
     <name>Sakai Nakamura :: Launchpad Standalone Java Application</name>
     <description> Standalone Launchpad Java Application. Everything needed to run the Launchpad is

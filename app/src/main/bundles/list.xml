@@ -374,7 +374,7 @@ KERN-1187
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.core</artifactId>
-      <version>0.2.1.vcam_sparsemapcontent</version>
+      <version>1.2.1.vcam_sparsemapcontent</version>
     </bundle>
     <bundle>
       <groupId>com.googlecode.guava-osgi</groupId>
@@ -507,7 +507,7 @@ KERN-1187
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.solr</artifactId>
-      <version>0.2.1.vcam_solr</version>
+      <version>1.2.1.vcam_solr</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
