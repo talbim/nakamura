@@ -24,14 +24,11 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.felix.scr.annotations.Activate;
 import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Properties;
 import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.commons.osgi.PropertiesUtil;
-import org.osgi.service.event.Event;
-import org.osgi.service.event.EventHandler;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrQuery.ORDER;
 import org.apache.solr.client.solrj.SolrServer;
@@ -46,6 +43,7 @@ import org.sakaiproject.nakamura.api.lite.authorizable.Authorizable;
 import org.sakaiproject.nakamura.api.lite.authorizable.AuthorizableManager;
 import org.sakaiproject.nakamura.api.lite.authorizable.Group;
 import org.sakaiproject.nakamura.api.lite.authorizable.User;
+import org.sakaiproject.nakamura.api.search.DeletedPathsService;
 import org.sakaiproject.nakamura.api.search.SearchUtil;
 import org.sakaiproject.nakamura.api.search.solr.Query;
 import org.sakaiproject.nakamura.api.search.solr.ResultSetFactory;
@@ -56,12 +54,6 @@ import org.sakaiproject.nakamura.api.solr.SolrServerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.sakaiproject.nakamura.api.memory.CacheManagerService;
-import org.sakaiproject.nakamura.api.memory.CacheScope;
-import org.sakaiproject.nakamura.api.memory.Cache;
-import org.sakaiproject.nakamura.api.cluster.ClusterTrackingService;
-import org.sakaiproject.nakamura.api.cluster.ClusterServer;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Iterator;
@@ -69,28 +61,21 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.List;
-import java.util.ArrayList;
 
 /**
  *
  */
 @Component(metatype = true)
 @Service
-@Properties(value = {
-    @Property(name = "type", value = Query.SOLR),
-    @Property(name = "event.topics", value = {
-        "org/sakaiproject/nakamura/lite/content/DELETE",
-        "org/sakaiproject/nakamura/solr/COMMIT"})})
+@Property(name = "type", value = Query.SOLR)
 
-  public class SolrResultSetFactory implements ResultSetFactory, EventHandler {
+public class SolrResultSetFactory implements ResultSetFactory {
   @Property(longValue = 100L)
   private static final String VERY_SLOW_QUERY_TIME = "verySlowQueryTime";
   @Property(longValue = 10L)
   private static final String SLOW_QUERY_TIME = "slowQueryTime";
   @Property(intValue = 100)
   private static final String DEFAULT_MAX_RESULTS = "defaultMaxResults";
-
-  private static final String DELETED_PATH_CACHE = "deletedPathQueue";
 
   /** only used to mark the logger */
   private final class SlowQueryLogger { }
@@ -102,10 +87,7 @@ import java.util.ArrayList;
   private SolrServerService solrSearchService;
 
   @Reference
-  CacheManagerService cacheManagerService;
-
-  @Reference
-  ClusterTrackingService clusterTrackingService;
+  private DeletedPathsService deletedPathsService;
 
   private int defaultMaxResults = 100; // set to 100 to allow testing
   private long slowQueryThreshold;
@@ -118,92 +100,6 @@ import java.util.ArrayList;
     slowQueryThreshold = PropertiesUtil.toLong(props.get(SLOW_QUERY_TIME), 10L);
     verySlowQueryThreshold = PropertiesUtil.toLong(props.get(VERY_SLOW_QUERY_TIME), 100L);
   }
-
-
-  /*
-   * Get an instance of the cache used to track paths that have been marked as
-   * deleted since the last Solr commit.  This cache is shared by all nodes in a
-   * cluster, acting as a sort of shared memory.
-   */
-  private Cache<String> getDeletedPathCache() {
-    return cacheManagerService.getCache(DELETED_PATH_CACHE, CacheScope.CLUSTERREPLICATED);
-  }
-
-
-  /*
-   * Record a path as having been deleted, preventing it from appearing in search results.
-   *
-   * @param path the path that was deleted
-   */
-  private synchronized void storeDeletedPath(String path) {
-    Cache<String> cache = getDeletedPathCache();
-    String myId = clusterTrackingService.getCurrentServerId();
-
-    int pathCount = getInt(cache.get("pathCount@" + myId));
-    cache.put("path[" + pathCount + "]@" + myId,
-              SearchUtil.escapeString(path, Query.SOLR));
-    cache.put("pathCount@" + myId, String.valueOf(pathCount + 1));
-  }
-
-
-  /*
-   * Clear the list of deleted nodes for this node.
-   */
-  private synchronized void clearDeletedPaths() {
-    Cache<String> cache = getDeletedPathCache();
-    String myId = clusterTrackingService.getCurrentServerId();
-
-    int pathCount = getInt(cache.get("pathCount@" + myId));
-
-    for (int idx = 0; idx < pathCount; idx++) {
-      cache.remove("path[" + idx + "]@" + myId);
-    }
-
-    cache.put("pathCount@" + myId, String.valueOf(0));
-  }
-
-
-  /**
-   * Get a list of the paths that were deleted since the last Solr commit across all nodes
-   * in the cluster. Escapes the paths to make sure they are safe for consumption in a
-   * query.
-   */
-  private List<String> getDeletedPaths() {
-    List<String> deletedPaths = new ArrayList<String>();
-    Cache<String> cache = getDeletedPathCache();
-
-    for (ClusterServer server : clusterTrackingService.getAllServers()) {
-      String serverId = server.getServerId();
-      int pathCount = getInt(cache.get("pathCount@" + serverId));
-
-      for (int idx = 0; idx < pathCount; idx++) {
-        String path = (String)cache.get("path[" + idx + "]@" + serverId);
-
-        if (path != null) {
-          deletedPaths.add(SearchUtil.escapeString(path, Query.SOLR));
-        }
-      }
-    }
-
-    return deletedPaths;
-  }
-
-
-  public void handleEvent(Event event) {
-    String topic = event.getTopic();
-
-    if (topic.equals("org/sakaiproject/nakamura/lite/content/DELETE")) {
-      String path = (String)event.getProperty("path");
-
-      if (path != null) {
-        storeDeletedPath(path);
-      }
-    } else if (topic.equals("org/sakaiproject/nakamura/solr/COMMIT")) {
-      clearDeletedPaths();
-    }
-  }
-      
-
 
   /**
    * Process a query string to search using Solr.
@@ -264,7 +160,7 @@ import java.util.ArrayList;
         }
       }
 
-      List<String> deletedPaths = getDeletedPaths();
+      List<String> deletedPaths = deletedPathsService.getDeletedPaths();
       if (!deletedPaths.isEmpty()) {
         // these are escaped as they are collected
         filterQueries.add("-path:(" + StringUtils.join(deletedPaths, " OR ") + ")");
@@ -389,12 +285,5 @@ import java.util.ArrayList;
       LOGGER.warn("Expected the sort option to be 1 or 2 terms. Found: {}", val);
     }
     // }
-  }
-
-  private int getInt(String value) {
-	  if ( value == null ) {
-		  return 0;
-	  }
-	  return Integer.parseInt(value);
   }
 }

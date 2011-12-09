@@ -26,6 +26,7 @@ import org.apache.felix.scr.annotations.Property;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
 import org.apache.sling.api.SlingHttpServletRequest;
+import org.apache.sling.commons.osgi.PropertiesUtil;
 import org.apache.solr.client.solrj.util.ClientUtils;
 import org.sakaiproject.nakamura.api.connections.ConnectionState;
 import org.sakaiproject.nakamura.api.files.FilesConstants;
@@ -187,8 +188,8 @@ public class RelatedContentSearchPropertyProvider extends
             }
 
             // grab all the unique tags
-            final String[] tags = (String[]) content
-                .getProperty(FilesConstants.SAKAI_TAGS);
+            final String[] tags = PropertiesUtil.toStringArray(content
+                .getProperty(FilesConstants.SAKAI_TAGS));
             if (tags != null) {
               allTags.addAll(Arrays.asList(tags));
             }

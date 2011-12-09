@@ -355,8 +355,8 @@ public class LiteOutgoingEmailMessageListener implements MessageListener {
     }
 
     if (contentNode.hasProperty(MessageConstants.PROP_SAKAI_BODY)) {
-      String messageBody = (String) contentNode
-          .getProperty(MessageConstants.PROP_SAKAI_BODY);
+      String messageBody = String.valueOf(contentNode
+          .getProperty(MessageConstants.PROP_SAKAI_BODY));
       // if this message has a template, use it
       LOGGER
           .debug("Checking for sakai:templatePath and sakai:templateParams properties on the outgoing message's node.");

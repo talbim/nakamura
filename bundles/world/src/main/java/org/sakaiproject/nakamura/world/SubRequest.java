@@ -55,7 +55,7 @@ public class SubRequest {
     JSONObject json = new JSONObject();
     json.put("url", url);
     json.put("method", method);
-    json.put("_charset_", "utf-8");
+    parameters.put("_charset_", "utf-8");
     json.put("parameters", parameters);
     this.request = request;
     this.requestInfo = new RequestInfo(json);

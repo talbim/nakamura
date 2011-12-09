@@ -22,31 +22,30 @@ import com.google.common.collect.ImmutableMap;
 import org.apache.felix.scr.annotations.Component;
 import org.apache.felix.scr.annotations.Reference;
 import org.apache.felix.scr.annotations.Service;
-import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 import org.apache.sling.jcr.api.SlingRepository;
 import org.apache.sling.jcr.resource.JcrResourceConstants;
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrDocument;
+import org.apache.solr.common.SolrDocumentList;
 import org.sakaiproject.nakamura.api.files.FilesConstants;
 import org.sakaiproject.nakamura.api.lite.Repository;
 import org.sakaiproject.nakamura.api.lite.StorageClientException;
 import org.sakaiproject.nakamura.api.lite.accesscontrol.AccessDeniedException;
 import org.sakaiproject.nakamura.api.lite.content.Content;
 import org.sakaiproject.nakamura.api.lite.content.ContentManager;
-import org.sakaiproject.nakamura.api.search.solr.Query;
-import org.sakaiproject.nakamura.api.search.solr.Result;
-import org.sakaiproject.nakamura.api.search.solr.SolrSearchException;
-import org.sakaiproject.nakamura.api.search.solr.SolrSearchResultSet;
-import org.sakaiproject.nakamura.api.search.solr.SolrSearchServiceFactory;
+import org.sakaiproject.nakamura.api.solr.SolrServerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
+import javax.jcr.PathNotFoundException;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
@@ -58,6 +57,8 @@ public class TagMigrator {
 
   private static final String SYSTEM_LOG_PATH = "system/v1.1.1-tagmigratorrunlog";
 
+  private static final int ROWS_PER_SEARCH = 5000;
+
   @Reference
   private SlingRepository slingRepository;
 
@@ -65,10 +66,10 @@ public class TagMigrator {
   private Repository sparseRepository;
 
   @Reference
-  private SolrSearchServiceFactory searchServiceFactory;
+  private SolrServerService solrSearchService;
 
-  public void migrate(final SlingHttpServletRequest request, final SlingHttpServletResponse response, boolean dryRun, boolean reindexAll)
-          throws SolrSearchException, RepositoryException, StorageClientException, AccessDeniedException {
+  public void migrate(final SlingHttpServletResponse response, boolean dryRun, boolean reindexAll)
+          throws RepositoryException, StorageClientException, AccessDeniedException, SolrServerException {
 
     org.sakaiproject.nakamura.api.lite.Session sparseSession = null;
     Session jcrSession = null;
@@ -79,8 +80,7 @@ public class TagMigrator {
 
       if (needsMigration(sparseSession) || reindexAll) {
         SparseUpgradeServlet.writeToResponse("Migrating tags from JCR to Sparse...", response);
-        SolrSearchResultSet taggedDocuments = getTaggedDocuments(request);
-        Set<String> allTags = getUniqueTags(taggedDocuments);
+        Set<String> allTags = getUniqueTags();
         ensureTagsExistInJCR(allTags, jcrSession, dryRun);
         saveTagsInSparse(jcrSession, sparseSession, dryRun);
       } else {
@@ -103,35 +103,54 @@ public class TagMigrator {
     return !cm.exists(SYSTEM_LOG_PATH);
   }
 
-  private SolrSearchResultSet getTaggedDocuments(SlingHttpServletRequest request) throws SolrSearchException {
-    Query query = new Query("tag:*");
-    SolrSearchResultSet results = searchServiceFactory.getSearchResultSet(request, query);
-    LOGGER.info("Got " + results.getSize() + " tagged documents from solr index");
-    return results;
-  }
-
-  private Set<String> getUniqueTags(SolrSearchResultSet taggedDocuments) {
+  private Set<String> getUniqueTags() throws SolrServerException {
     Set<String> allTags = new HashSet<String>();
-    Iterator<Result> iterator = taggedDocuments.getResultSetIterator();
-    while (iterator.hasNext()) {
-      Map<String, Collection<Object>> props = iterator.next().getProperties();
-      Collection<Object> tags = props.get("tag");
-      if (tags != null) {
-        for (Object o : tags) {
-          if (o instanceof String) {
-            String tag = (String) o;
-            allTags.add(tag);
+    int start = 0;
+    int processedDocs = 0;
+
+    while (true) {
+      SolrDocumentList taggedDocuments = getMoreDocuments(start);
+      for (SolrDocument taggedDocument : taggedDocuments) {
+        processedDocs++;
+        Collection<Object> tags = taggedDocument.getFieldValues("tag");
+        if (tags != null) {
+          for (Object o : tags) {
+            if (o instanceof String) {
+              String tag = (String) o;
+              allTags.add(tag);
+            }
           }
         }
       }
+      if (taggedDocuments.getNumFound() > (taggedDocuments.getStart() + ROWS_PER_SEARCH)) {
+        start = start + ROWS_PER_SEARCH;
+      } else {
+        break;
+      }
     }
+
+    LOGGER.info("Processed " + processedDocs + " total documents for tags");
     LOGGER.info("We have " + allTags.size() + " unique tags represented in Solr indexes: " + allTags);
     return allTags;
   }
 
+  private SolrDocumentList getMoreDocuments(int start) throws SolrServerException {
+    SolrQuery query = new SolrQuery("tag:*");
+    query.setFields("tag"); // we only need the tag field
+    query.setRows(ROWS_PER_SEARCH);
+    query.setStart(start);
+    // go direct to solr server so we can get all documents more easily
+    QueryResponse solrResponse = this.solrSearchService.getServer().query(query);
+    LOGGER.info("Got " + solrResponse.getResults().getNumFound() + " tagged documents from solr index; " +
+            "this batch starts at " + solrResponse.getResults().getStart());
+    return solrResponse.getResults();
+  }
+
   private void ensureTagsExistInJCR(Set<String> allTags, Session session, boolean dryRun) throws RepositoryException {
-    Node jcrTags = session.getNode("/tags");
-    if (jcrTags == null) {
+    Node jcrTags;
+    try {
+      jcrTags = session.getNode("/tags");
+    } catch (PathNotFoundException ignored) {
       jcrTags = session.getRootNode().addNode("tags");
     }
     for (String tag : allTags) {

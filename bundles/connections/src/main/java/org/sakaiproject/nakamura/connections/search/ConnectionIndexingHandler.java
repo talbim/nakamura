@@ -102,7 +102,7 @@ public class ConnectionIndexingHandler implements IndexingHandler, QoSIndexHandl
   public int getTtl(Event event) {
     // have to be > 0 based on the logic in ContentEventListener.
     // see org.sakaiproject.nakamura.solr.Utils.defaultMax(int)
-    return 1;
+    return 50;
   }
 
   /**

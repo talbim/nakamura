@@ -64,7 +64,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  *
  */
-@ServiceDocumentation(name = "LiteGroupJoinRequestServlet documentation", okForVersion = "0.11",
+@ServiceDocumentation(name = "LiteGroupJoinRequestServlet documentation", okForVersion = "1.1",
   shortDescription = "Servlet to make a request to join a group",
   description = "Servlet to make a request to join a group, responding to nodes of type sparse/joinrequests",
   bindings = @ServiceBinding(type = BindingType.TYPE, bindings = "sparse/joinrequests",

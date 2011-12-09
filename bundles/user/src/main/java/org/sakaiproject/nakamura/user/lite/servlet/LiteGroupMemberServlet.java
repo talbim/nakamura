@@ -68,7 +68,7 @@ import javax.servlet.http.HttpServletResponse;
  * Provides a listing for the members and managers of this group.
  */
 @ServiceDocumentation(
-  name = "Group Member Servlet", okForVersion = "0.11",
+  name = "Group Member Servlet", okForVersion = "1.1",
   shortDescription = "Provides a listing for the members and managers of this group.",
   description = "Provides a listing for the members and managers of this group.",
   bindings = {
@@ -268,7 +268,7 @@ public class LiteGroupMemberServlet extends SlingSafeMethodsServlet {
         continue;
       }
       // filter this out if it is a manager member
-      if (!managers.contains(memberName)) {
+      if (member != null && !managers.contains(memberName)) {
         String name = getName(member);
         map.put(name, member);
       }
@@ -314,7 +314,7 @@ public class LiteGroupMemberServlet extends SlingSafeMethodsServlet {
         // that's normal, and we'll just skip over it. (KERN-2302)
         continue;
       }
-      if (managers.contains(memberName)) {
+      if (mau != null && managers.contains(memberName)) {
         String name = getName(mau);
         map.put(name, mau);
       }

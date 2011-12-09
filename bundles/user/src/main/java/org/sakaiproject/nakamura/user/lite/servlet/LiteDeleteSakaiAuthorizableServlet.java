@@ -40,8 +40,11 @@ import org.sakaiproject.nakamura.api.doc.ServiceResponse;
 import org.sakaiproject.nakamura.api.doc.ServiceSelector;
 import org.sakaiproject.nakamura.api.lite.ClientPoolException;
 import org.sakaiproject.nakamura.api.lite.Session;
+import org.sakaiproject.nakamura.api.lite.StorageClientException;
 import org.sakaiproject.nakamura.api.lite.StorageClientUtils;
 import org.sakaiproject.nakamura.api.lite.accesscontrol.AccessDeniedException;
+import org.sakaiproject.nakamura.api.lite.accesscontrol.Permissions;
+import org.sakaiproject.nakamura.api.lite.accesscontrol.Security;
 import org.sakaiproject.nakamura.api.lite.authorizable.Authorizable;
 import org.sakaiproject.nakamura.api.lite.authorizable.AuthorizableManager;
 import org.sakaiproject.nakamura.api.lite.authorizable.Group;
@@ -109,7 +112,7 @@ import javax.servlet.http.HttpServletResponse;
         "EEE MMM dd yyyy HH:mm:ss 'GMT'Z", "yyyy-MM-dd'T'HH:mm:ss.SSSZ",
         "yyyy-MM-dd'T'HH:mm:ss", "yyyy-MM-dd", "dd.MM.yyyy HH:mm:ss", "dd.MM.yyyy" })})
 
-@ServiceDocumentation(name="Delete Authorizable (Group and User) Servlet", okForVersion = "0.11",
+@ServiceDocumentation(name="Delete Authorizable (Group and User) Servlet", okForVersion = "1.1",
     description="Deletes a user or group. Maps on to nodes of resourceType sparse/userManager like " +
     		"/system/userManager. This servlet responds at " +
     		"/system/userManager.delete.html. The servlet also responds to single delete " +
@@ -156,7 +159,7 @@ public class LiteDeleteSakaiAuthorizableServlet extends LiteAbstractAuthorizable
   protected void handleOperation(SlingHttpServletRequest request, HtmlResponse response,
       List<Modification> changes)  {
 
-    Iterator<Resource> res = getApplyToResources(request);
+    Iterator<Authorizable> res = getApplyToResources(request);
     Collection<Authorizable> authorizables = new HashSet<Authorizable>();
 
     if (res == null) {
@@ -171,8 +174,7 @@ public class LiteDeleteSakaiAuthorizableServlet extends LiteAbstractAuthorizable
         authorizables.add(item);
     } else {
         while (res.hasNext()) {
-            Resource resource = res.next();
-            Authorizable item = resource.adaptTo(Authorizable.class);
+            Authorizable item = res.next();
             if (item != null) {
               authorizables.add(item);
             }
@@ -182,26 +184,24 @@ public class LiteDeleteSakaiAuthorizableServlet extends LiteAbstractAuthorizable
     LOGGER.debug("Will delete {} ",authorizables);
     
     Session session = StorageClientUtils.adaptToSession(request.getResourceResolver().adaptTo(javax.jcr.Session.class));
+    Session adminSession = null;
     Map<String, Boolean> authorizableEvents = new HashMap<String, Boolean>();
     try {
+      adminSession = session.getRepository().loginAdministrative();
+      if (!allowedToDelete(session, authorizables)) {
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN, "Not allowed to delete one or more of the specified authorizables.");
+        return;
+      } else {
+        session = session.getRepository().loginAdministrative();
+      }
       AuthorizableManager authorizableManager = session.getAuthorizableManager();
       for ( Authorizable authorizable : authorizables) {
         LOGGER.debug("Deleting {} ",authorizable.getId());
         authorizableEvents.put(authorizable.getId(), (authorizable instanceof Group));
         postProcessorService.process(authorizable, session, ModificationType.DELETE, request);
-        Session freshSession = null;
-        authorizableManager.delete(authorizable.getId());
-        try {
-          freshSession = session.getRepository().loginAdministrative(session.getUserId());
-          freshSession.getAuthorizableManager().delete(authorizable.getId());
-        } finally {
-          if (freshSession != null) {
-            try {
-              freshSession.logout();
-            } catch (ClientPoolException e) {
-              LOGGER.error(e.getMessage());
-            }
-          }
+        session.getAuthorizableManager().delete(authorizable.getId());
+        if (adminSession.getAuthorizableManager().findAuthorizable(authorizable.getId()) != null) {
+          adminSession.getAuthorizableManager().delete(authorizable.getId());
         }
       }
       // Launch an OSGi event for each authorizable.
@@ -216,7 +216,7 @@ public class LiteDeleteSakaiAuthorizableServlet extends LiteAbstractAuthorizable
           EventUtils.sendOsgiEvent(properties, topic, eventAdmin);
         } catch (Exception e) {
           // Trap all exception so we don't disrupt the normal behaviour.
-          LOGGER.error("Failed to launch an OSGi event for creating a user.", e);
+          LOGGER.error("Failed to launch an OSGi event for deleting an authorizable.", e);
         }
       }
     } catch ( AccessDeniedException e) {
@@ -232,7 +232,34 @@ public class LiteDeleteSakaiAuthorizableServlet extends LiteAbstractAuthorizable
       LOGGER.warn(e.getMessage(),e);
       response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
       return;
+    } finally {
+      if (session != null) {
+        try {
+          session.logout();
+        } catch (ClientPoolException e) {
+          LOGGER.error(e.getMessage());
+        }
+      }
+      if (adminSession != null) {
+        try {
+          adminSession.logout();
+        } catch (ClientPoolException e) {
+          LOGGER.error(e.getMessage());
+        }
+      }
     }
+  }
+
+  private boolean allowedToDelete(Session session, Collection<Authorizable> authorizables) throws StorageClientException {
+    org.sakaiproject.nakamura.api.lite.accesscontrol.AccessControlManager accessControlManager = session.getAccessControlManager();
+    AuthorizableManager authorizableManager = session.getAuthorizableManager();
+    Authorizable thisUser = authorizableManager.getUser();
+    for (Authorizable authorizable : authorizables) {
+      if (!accessControlManager.can(thisUser, Security.ZONE_AUTHORIZABLES, authorizable.getId(), Permissions.CAN_DELETE)) {
+        return false;
+      }
+    }
+    return true;
   }
 
 
@@ -249,7 +276,7 @@ public class LiteDeleteSakaiAuthorizableServlet extends LiteAbstractAuthorizable
    * @return The iterator of resources listed in the parameter or
    *         <code>null</code> if the parameter is not set in the request.
    */
-  protected Iterator<Resource> getApplyToResources(
+  protected Iterator<Authorizable> getApplyToResources(
           SlingHttpServletRequest request) {
 
       String[] applyTo = request.getParameterValues(SlingPostConstants.RP_APPLY_TO);
@@ -260,9 +287,11 @@ public class LiteDeleteSakaiAuthorizableServlet extends LiteAbstractAuthorizable
       return new ApplyToIterator(request, applyTo);
   }
 
-  private static class ApplyToIterator implements Iterator<Resource> {
+  private static class ApplyToIterator implements Iterator<Authorizable> {
 
       private final ResourceResolver resolver;
+
+      private final Session session;
 
       private final Resource baseResource;
 
@@ -270,10 +299,11 @@ public class LiteDeleteSakaiAuthorizableServlet extends LiteAbstractAuthorizable
 
       private int pathIndex;
 
-      private Resource nextResource;
+      private Authorizable nextResource;
 
       ApplyToIterator(SlingHttpServletRequest request, String[] paths) {
           this.resolver = request.getResourceResolver();
+          this.session = StorageClientUtils.adaptToSession(this.resolver.adaptTo(javax.jcr.Session.class));
           this.baseResource = request.getResource();
           this.paths = paths;
           this.pathIndex = 0;
@@ -285,28 +315,35 @@ public class LiteDeleteSakaiAuthorizableServlet extends LiteAbstractAuthorizable
           return nextResource != null;
       }
 
-      public Resource next() {
+      public Authorizable next() {
           if (!hasNext()) {
               throw new NoSuchElementException();
           }
 
-          Resource result = nextResource;
+          Authorizable result = nextResource;
           nextResource = seek();
 
-          return result;
+        return result;
       }
 
       public void remove() {
           throw new UnsupportedOperationException();
       }
 
-      private Resource seek() {
+      private Authorizable seek() {
           while (pathIndex < paths.length) {
               String path = paths[pathIndex];
               pathIndex++;
 
-              Resource res = resolver.getResource(baseResource, path);
-              if (res != null) {
+            Authorizable res = null;
+            try {
+              res = session.getAuthorizableManager().findAuthorizable(path);
+            } catch (AccessDeniedException e) {
+              LOGGER.error(e.getMessage());
+            } catch (StorageClientException e) {
+              LOGGER.error(e.getMessage());
+            }
+            if (res != null) {
                   return res;
               }
           }

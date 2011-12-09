@@ -256,69 +256,6 @@
       <id>sakai-release</id>
       <build>
         <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-antrun-plugin</artifactId>
-            <version>1.7</version>
-            <executions>
-              <execution>
-                <id>process-sources</id>
-                <phase>process-sources</phase>
-                <configuration>
-                  <target>
-                    <echo message="Updating select config files..." />
-                    <replace dir="${project.basedir}" token="1.1-SNAPSHOT" value="1.1">
-                      <include name="tools/version" />
-                      <include name="tools/version.bat" />
-                      <include name="app/src/main/bundles/list.xml" />
-                    </replace>
-                    <exec executable="git">
-                        <arg value="add"/>
-                        <arg value="tools/version"/>
-                        <arg value="tools/version.bat"/>
-                        <arg value="app/src/main/bundles/list.xml"/>
-                    </exec>
-                    <exec executable="git">
-                        <arg value="commit"/>
-                        <arg value="-m"/>
-                        <arg value="updating version numbers for release"/>
-                    </exec>
-                  </target>
-                </configuration>
-                <goals>
-                  <goal>run</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>advance-version-number</id>
-                <phase>deploy</phase>
-                <configuration>
-                  <target>
-                    <echo message="Updating select config files..." />
-                    <replace dir="${project.basedir}" token="1.1" value="1.2-SNAPSHOT">
-                      <include name="tools/version" />
-                      <include name="tools/version.bat" />
-                    </replace>
-                    <replace file="${project.basedir}/app/src/main/bundles/list.xml" token="&gt;1.1&lt;" value="&gt;1.2-SNAPSHOT&lt;" />
-                    <exec executable="git">
-                        <arg value="add"/>
-                        <arg value="tools/version"/>
-                        <arg value="tools/version.bat"/>
-                        <arg value="app/src/main/bundles/list.xml"/>
-                    </exec>
-                    <exec executable="git">
-                        <arg value="commit"/>
-                        <arg value="-m"/>
-                        <arg value="updating version numbers for development"/>
-                    </exec>
-                  </target>
-                </configuration>
-                <goals>
-                  <goal>run</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
           <!-- We want to sign the artifact, the POM, and all attached artifacts -->
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
@@ -417,6 +354,7 @@
          <groupId>org.codehaus.mojo</groupId>
          <artifactId>ianal-maven-plugin</artifactId>
          <version>1.0-alpha-1</version>
+         <inherited>false</inherited>
          <executions>
             <execution>
                <goals>

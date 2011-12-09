@@ -116,7 +116,7 @@ public class MessageIndexingHandler implements IndexingHandler, QoSIndexHandler 
   public int getTtl(Event event) {
     // have to be > 0 based on the logic in ContentEventListener.
     // see org.sakaiproject.nakamura.solr.Utils.defaultMax(int)
-    return 1;
+    return 50;
   }
 
   /**
@@ -206,11 +206,6 @@ public class MessageIndexingHandler implements IndexingHandler, QoSIndexHandler 
    *      org.osgi.service.event.Event)
    */
   public Collection<String> getDeleteQueries(RepositorySession repositorySession,
-      Event event) {
-    return null;
-  }
-
-  public Collection<String> getImmediateDeleteQueries(RepositorySession repositorySession,
       Event event) {
     List<String> retval = Collections.emptyList();
     logger.debug("GetDelete for {} ", event);

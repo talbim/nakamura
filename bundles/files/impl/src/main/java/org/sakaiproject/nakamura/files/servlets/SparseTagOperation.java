@@ -80,7 +80,7 @@ import javax.servlet.http.HttpServletResponse;
   @Property(name = "sling.post.operation", value = "tag"),
   @Property(name = "service.description", value = "Associates one or more tags with a piece of content."),
   @Property(name = "service.vendor", value = "The Sakai Foundation") })
-@ServiceDocumentation(name = "SparseTagOperation", okForVersion = "0.11",
+@ServiceDocumentation(name = "SparseTagOperation", okForVersion = "1.1",
   shortDescription = "Tag a node",
   description = "Add a tag to a node.",
   bindings = {
@@ -154,8 +154,8 @@ public class SparseTagOperation extends AbstractSparsePostOperation {
                 Security.ZONE_CONTENT,
                 tagContentPath,
                   new AclModification[] {
-                      new AclModification(AclModification.denyKey(User.ANON_USER),
-                          Permissions.ALL.getPermission(), AclModification.Operation.OP_REPLACE),
+                      new AclModification(AclModification.grantKey(User.ANON_USER),
+                          Permissions.CAN_READ.getPermission(), AclModification.Operation.OP_REPLACE),
                       new AclModification(AclModification.grantKey(Group.EVERYONE),
                           Permissions.CAN_READ.getPermission(), AclModification.Operation.OP_REPLACE),
                       new AclModification(AclModification.grantKey(Group.ADMINISTRATORS_GROUP),

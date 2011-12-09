@@ -101,7 +101,7 @@ public class AuthorizableIndexingHandler implements IndexingHandler {
 
   // list of authorizables to not index
   private static final Set<String> BLACKLISTED_AUTHZ = ImmutableSet.of("admin",
-    "g-contacts-admin", "anonymous", "owner");
+    "g-contacts-admin", "anonymous", "owner", "system");
 
   private static final String SAKAI_PSEUDOGROUPPARENT_PROP = "sakai:parent-group-id";
 

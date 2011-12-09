@@ -46,7 +46,7 @@ import java.text.MessageFormat;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 
-@ServiceDocumentation(name = "Sparse Upgrade Servlet", okForVersion = "0.11",
+@ServiceDocumentation(name = "Sparse Upgrade Servlet", okForVersion = "1.1",
         description = "Upgrades data stored in sparsemapcontent storage layer by running all the PropertyMigrator instances " +
                 "that are registered. Note that the upgrade only works for JDBC storage clients. The upgrade may take a long " +
                 "time to run; progress of the upgrade gets written to the response every so often and can be seen in realtime if " +
@@ -122,7 +122,7 @@ public class SparseUpgradeServlet extends SlingAllMethodsServlet {
       this.migrationService.migrate(dryRun, limit, reindexAll, getFeedback(response));
 
       // migrate tags from JCR to Sparse
-      this.tagMigrator.migrate(request, response, dryRun, reindexAll);
+      this.tagMigrator.migrate(response, dryRun, reindexAll);
 
       // reindex solr if necessary
       if (reindexAll && !dryRun) {

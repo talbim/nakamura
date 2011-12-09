@@ -206,47 +206,56 @@ def main(term_server)
           FileUtils.rm DOCS_DIR + "/#{filename_thumb}"
         else
           begin
-            # Get text from the document
-            Docsplit.extract_text filename, :ocr => false
-            text_content = IO.read(id + ".txt")
-            postData = Net::HTTP.post_form(URI.parse(term_server), {'context' => text_content})
-            if postData != nil
-              postData = JSON.parse postData.body
+            # Check if user wants autotagging
+            uid = meta["sakai:pool-content-created-for"]
+            user_file = @s.execute_get @s.url_for("/system/me?uid=#{uid}")
+            unless user_file.code == '200'
+              raise "Failed to get user: #{uid}"
             end
-            tags = ""
-            if postData != nil
-              for i in (0..postData.length - 1)
-                tags += "- " + postData[i] + "\n"
+            user = JSON.parse(user_file.body)
+            if user["user"]["properties"]["isAutoTagging"]
+              # Get text from the document
+              Docsplit.extract_text filename, :ocr => false
+              text_content = IO.read(id + ".txt")
+              postData = Net::HTTP.post_form(URI.parse(term_server), {'context' => text_content})
+              if postData != nil
+                postData = JSON.parse postData.body
               end
-            end
-            # Add old tags to new tags
-            origin_tags = meta["sakai:tags"]
-            if origin_tags != nil && origin_tags.length > 0
-              for tag in origin_tags
-                postData << tag
+              tags = ""
+              if postData != nil
+                for i in (0..postData.length - 1)
+                  tags += "- " + postData[i] + "\n"
+                end
               end
-            end
-            # Generate tags for document
-            @s.execute_post @s.url_for("p/#{id}"), {"sakai:tags" => postData}
-            log "Generate tags for #{id}, #{postData}"
-            FileUtils.rm id + ".txt"
-            user_id = meta["sakai:pool-content-created-for"]
-            admin_id = "admin"
-            origin_file_name = meta["sakai:pooled-content-file-name"]
-            if postData != nil && postData.length > 0
-              msg_body = "We have automatically added the following tags for #{origin_file_name}:\n\n #{tags}.\n\nThis will allow you to find it back more easily and will help other people in finding your content, in case your content is public.\n\nRegards, \nThe Sakai Team"
-              @s.execute_post(@s.url_for("~#{admin_id}/message.create.html"), {
-                "sakai:type" => "internal",
-                "sakai:sendstate" => "pending",
-                "sakai:messagebox" => "outbox",
-                "sakai:to" => "internal:#{user_id}",
-                "sakai:from" => "#{admin_id}",
-                "sakai:subject" => "We've added some tags to #{origin_file_name}",
-                "sakai:body" => msg_body,
-                "_charset_" => "utf-8",
-                "sakai:category" => "message"
-              })
-              log "sending message from #{admin_id} user to #{user_id}"
+              # Add old tags to new tags
+              origin_tags = meta["sakai:tags"]
+              if origin_tags != nil && origin_tags.length > 0
+                for tag in origin_tags
+                  postData << tag
+                end
+              end
+              # Generate tags for document
+              @s.execute_post @s.url_for("p/#{id}"), {"sakai:tags" => postData}
+              log "Generate tags for #{id}, #{postData}"
+              FileUtils.rm id + ".txt"
+              user_id = meta["sakai:pool-content-created-for"]
+              admin_id = "admin"
+              origin_file_name = meta["sakai:pooled-content-file-name"]
+              if postData != nil && postData.length > 0
+                msg_body = "We have automatically added the following tags for #{origin_file_name}:\n\n #{tags}\n\nThese tags were created to aid in the discoverability of your content.\n\nRegards, \nThe Sakai Team"
+                @s.execute_post(@s.url_for("~#{admin_id}/message.create.html"), {
+                  "sakai:type" => "internal",
+                  "sakai:sendstate" => "pending",
+                  "sakai:messagebox" => "outbox",
+                  "sakai:to" => "internal:#{user_id}",
+                  "sakai:from" => "#{admin_id}",
+                  "sakai:subject" => "We've added some tags to #{origin_file_name}",
+                  "sakai:body" => msg_body,
+                  "_charset_" => "utf-8",
+                  "sakai:category" => "message"
+                })
+                log "sending message from #{admin_id} user to #{user_id}"
+              end
             end
           rescue Exception => msg
             log "failed to generate document tags: #{msg}", :warn
