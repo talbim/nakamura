@@ -89,7 +89,7 @@
        <id>withContrib</id>
        <modules>
         <module>contrib/ldap</module>
-        <module>contrib/import</module>
+        <!-- <module>contrib/import</module> -->
         <module>contrib/filters</module>
         <!-- <module>contrib/mailman</module> -->
         <module>contrib/persondirectory</module>
