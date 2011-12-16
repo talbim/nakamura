@@ -225,6 +225,7 @@ def main(term_server)
               if postData != nil
                 for i in (0..postData.length - 1)
                   tags += "- " + postData[i] + "\n"
+                  postData[i] = "/tags/#{postData[i]}"
                 end
               end
               # Generate tags for document
