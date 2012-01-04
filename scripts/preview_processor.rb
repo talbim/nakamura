@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
+require 'rubygems'
 require 'fileutils'
 require 'nakamura'
 include SlingInterface
 require 'nakamura/users'
 include SlingUsers
-require 'rubygems'
 require 'docsplit'
 RMAGICK_BYPASS_VERSION_TEST = true
 require 'RMagick'
@@ -314,8 +314,8 @@ def main(term_server)
 end
 
 def usage
-  puts "usage: #{$0} [-h|--help] [-s|--server] <server> [-p|--password] <adminpassword> [-t|--term] <term-extraction address> [-i|--interval] [interval]"
-  puts "example: #{$0} http://localhost:8080/ admin http://localhost:8085/ 20"
+  puts "usage: #{$0} [-h|--help] [-s|--server] <server> [-p|--password] <adminpassword> [-t|--term] <term-extraction address> [-i|--interval] [interval] [-n|--count] [count]"
+  puts "example: #{$0} -s http://localhost:8080/ -p admin -t http://localhost:8085/ -i 20"
 end
 
 ## Parse command line opts and call main ##
@@ -328,7 +328,7 @@ opt = Getopt::Long.getopts(
   ["--count", "-n", Getopt::REQUIRED]
 )
 
-if opt['help'] || not(opt['server'] && opt['password'] && opt['term'])
+if opt['help'] || ( not(opt['server'] && opt['password'] && opt['term']) )
   usage()
 else
   setup(opt['server'], opt['password'])
