@@ -163,9 +163,11 @@ public class TagMigrator {
         if ( tagPath.startsWith("/")) {
           tagPath = tagPath.substring(1);
         }
-        LOGGER.info("JCR lacks the tag " + tagPath + ", creating it at /tags/" + tagPath);
-        if (!dryRun) {
-          JcrUtils.deepGetOrCreateNode(session, "/tags/" + tagPath);
+        if (tagPath.length() > 0) {
+          LOGGER.info("JCR lacks the tag " + tagPath + ", creating it at /tags/" + tagPath);
+          if (!dryRun) {
+            JcrUtils.deepGetOrCreateNode(session, "/tags/" + tagPath);
+          }
         }
       }
     }
