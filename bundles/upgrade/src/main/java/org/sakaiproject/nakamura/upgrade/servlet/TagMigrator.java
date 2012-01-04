@@ -37,6 +37,7 @@ import org.sakaiproject.nakamura.api.lite.accesscontrol.AccessDeniedException;
 import org.sakaiproject.nakamura.api.lite.content.Content;
 import org.sakaiproject.nakamura.api.lite.content.ContentManager;
 import org.sakaiproject.nakamura.api.solr.SolrServerService;
+import org.sakaiproject.nakamura.util.JcrUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -157,7 +158,7 @@ public class TagMigrator {
       if (!jcrTags.hasNode(tag)) {
         LOGGER.info("JCR lacks the tag " + tag + ", creating it...");
         if (!dryRun) {
-          jcrTags.addNode(tag);
+          JcrUtils.deepGetOrCreateNode(session, "/tags/" + tag);
         }
       }
     }
