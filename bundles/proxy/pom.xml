@@ -8,6 +8,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.sakaiproject.nakamura</groupId>
   <artifactId>org.sakaiproject.nakamura.proxy</artifactId>
+  <version>1.1.0.vcam</version>
   <packaging>bundle</packaging>
   <name>Sakai Nakamura :: proxy service</name>
   <description>This will proxy through to other websites and fetch data</description>

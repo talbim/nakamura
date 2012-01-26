@@ -562,7 +562,7 @@ KERN-1187
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.proxy</artifactId>
-      <version>1.1</version>
+      <version>1.1.0.vcam</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
