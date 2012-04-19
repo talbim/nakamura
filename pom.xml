@@ -29,7 +29,7 @@
   -->
   <groupId>org.sakaiproject.nakamura</groupId>
   <artifactId>base</artifactId>
-  <version>1.2-SNAPSHOT</version>
+  <version>1.2.0</version>
   <packaging>pom</packaging>
   <name>Sakai Nakamura Project</name>
   <description> Sakai Nakamura is an OSGi server built ontop of Apache Sling, supporting Sakai 3. </description>
@@ -1194,7 +1194,7 @@
       <dependency>
         <groupId>org.sakaiproject.nakamura</groupId>
         <artifactId>org.sakaiproject.nakamura.postgresqlwrapper</artifactId>
-        <version>1.2-SNAPSHOT</version>
+        <version>1.2.0</version>
       </dependency>
 
     </dependencies>
