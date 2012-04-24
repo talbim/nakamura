@@ -254,6 +254,22 @@ public class DocMigratorTest extends Assert {
   }
 
   @Test
+  public void testKern2759Redux() throws Exception {
+    JSONObject group = readJSONFromFile("KERN2759Redux.json");
+    JSONObject migrated = docMigrator.createNewPageStructure(
+      new JSONObject(group.getString("structure0")), group);
+    assertEquals(1, migrated.getJSONObject("id6593845")
+      .getJSONArray("rows").getJSONObject(0)
+      .getJSONArray("columns").length());
+    assertEquals(2, migrated.getJSONObject("id6593845")
+      .getJSONArray("rows").getJSONObject(1)
+      .getJSONArray("columns").length());
+    assertEquals(0.5, migrated.getJSONObject("id6593845")
+      .getJSONArray("rows").getJSONObject(1)
+      .getJSONArray("columns").getJSONObject(0).getDouble("width"));
+  }
+
+  @Test
   public void testElementsInOrder() throws Exception {
     JSONObject group = readJSONFromFile("OutOfOrder.json");
     JSONObject migrated = docMigrator.createNewPageStructure(
