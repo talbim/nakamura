@@ -119,7 +119,7 @@
     <dependency>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.proxy</artifactId>
-      <version>1.2.0</version>
+      <version>1.1.0.vcam</version>
     </dependency>
     <dependency>
       <groupId>org.sakaiproject.nakamura</groupId>
