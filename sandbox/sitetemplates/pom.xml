@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-  <!--
+<!--
     * Licensed to the Sakai Foundation (SF) under one * or more
     contributor license agreements. See the NOTICE file * distributed
     with this work for additional information * regarding copyright
@@ -13,13 +13,12 @@
     express or implied. See the License for the * specific language
     governing permissions and limitations under the License.
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.sakaiproject.nakamura</groupId>
     <artifactId>base</artifactId>
-    <version>1.4.0</version>
+    <version>1.4.1-SNAPSHOT</version>
   </parent>
   <groupId>org.sakaiproject.nakamura</groupId>
   <artifactId>org.sakaiproject.nakamura.siteredux</artifactId>
@@ -107,22 +106,22 @@
     <dependency>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.utils</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.doc</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </dependency>
     <dependency>
     	<groupId>org.sakaiproject.nakamura</groupId>
     	<artifactId>org.sakaiproject.nakamura.user.api</artifactId>
-	<version>1.4.0</version>
+	<version>1.4.1-SNAPSHOT</version>
     </dependency>
     <dependency>
     	<groupId>org.sakaiproject.nakamura</groupId>
     	<artifactId>org.sakaiproject.nakamura.search</artifactId>
-	<version>1.4.0</version>
+	<version>1.4.1-SNAPSHOT</version>
     	<exclusions>
     		<exclusion>
     			<artifactId>org.sakaiproject.nakamura.profile.api</artifactId>
@@ -133,19 +132,19 @@
     <dependency>
     	<groupId>org.sakaiproject.nakamura</groupId>
     	<artifactId>org.sakaiproject.nakamura.site</artifactId>
-	<version>1.4.0</version>
+	<version>1.4.1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.version</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </dependency>
 
     <!-- TESTING -->
     <dependency>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.testutils</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>
     <dependency>

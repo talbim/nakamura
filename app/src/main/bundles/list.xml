@@ -376,7 +376,7 @@ KERN-1187
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.postgresqlwrapper</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.apache.servicemix.bundles</groupId>
@@ -452,31 +452,31 @@ KERN-1187
      <bundle>
        <groupId>org.sakaiproject.nakamura</groupId>
        <artifactId>org.sakaiproject.nakamura.webconsole.solr</artifactId>
-       <version>1.4.0</version>
+       <version>1.4.1-SNAPSHOT</version>
      </bundle>
    </startLevel>
-   <startLevel level="10" >
+   <startLevel level="10">
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.securityloader</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
    </startLevel>
-   <startLevel level="11" >
+   <startLevel level="11">
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.resource</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.utils</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.events</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.apache.sling</groupId>
@@ -489,39 +489,39 @@ KERN-1187
       <version>3.1_6</version>
     </bundle>
    </startLevel>
-   <startLevel level="12" >
+   <startLevel level="12">
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.batch</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.user.api</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.user.impl</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.memory</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.cluster</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.doc</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
    </startLevel>
-   <startLevel level="15" >
+   <startLevel level="15">
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.solr</artifactId>
@@ -545,121 +545,121 @@ KERN-1187
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.jcr</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.locking</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.presence</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.messaging</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.discussion</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.formauth</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.templates</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.proxy</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.auth.trusted</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
    </startLevel>
-   <startLevel level="20" >
+   <startLevel level="20">
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.meservice</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.image</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
    <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.connections</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.version</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.email.outgoing</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
    </startLevel>
-   <startLevel level="30" >
+   <startLevel level="30">
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.personal</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.activity.api</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.activity.impl</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.files.api</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.files.impl</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.files.migrator</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.search.api</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>    
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.search.impl</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.smtp</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.apache.felix</groupId>
@@ -669,77 +669,77 @@ KERN-1187
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.authz</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.basiclti</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.profile.api</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.profile.impl</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.captcha</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.docproxy</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.pages</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.http.api</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.http.impl</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.directory</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.world</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.upgrade</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.lom</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.content-packaging</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.robots.txt</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </bundle>
    </startLevel>
 </bundles>

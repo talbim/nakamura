@@ -61,7 +61,7 @@
                   </exec>
                   <condition property="failure">
                     <not>
-                      <equals arg1="${exitcode}" arg2="0" />
+                      <equals arg1="${exitcode}" arg2="0"/>
                     </not>
                   </condition>
                   <java classname="org.sakaiproject.nakamura.app.NakamuraMain" fork="true" classpathref="maven.runtime.classpath">
@@ -80,7 +80,7 @@
             <phase>clean</phase>
             <configuration>
               <target name="sling-clean" if="sling.clean">
-                <delete dir="sakai" />
+                <delete dir="sakai"/>
               </target>
             </configuration>
             <goals>

@@ -4,7 +4,7 @@
     <parent>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>base</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
       <relativePath>../../pom.xml</relativePath>
     </parent>
 	<artifactId>org.sakaiproject.nakamura.solr</artifactId>
@@ -168,7 +168,7 @@
 		<dependency>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.utils</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </dependency>
 		<dependency>
 			<groupId>com.googlecode.guava-osgi</groupId>

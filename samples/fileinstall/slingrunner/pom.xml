@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-  <!--
+<!--
     * Licensed to the Sakai Foundation (SF) under one * or more contributor license agreements. See
     the NOTICE file * distributed with this work for additional information * regarding copyright
     ownership. The SF licenses this file * to you under the Apache License, Version 2.0 (the *
@@ -14,7 +14,7 @@
   <parent>
     <artifactId>org.sakaiproject.nakamura.samples.fileinstall</artifactId>
     <groupId>org.sakaiproject.nakamura</groupId>
-    <version>1.4.0</version>
+    <version>1.4.1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.sakaiproject.nakamura</groupId>
@@ -24,7 +24,7 @@
     <dependency>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.app</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1-SNAPSHOT</version>
     </dependency>
   </dependencies>
   <build>
@@ -40,10 +40,7 @@
             <configuration>
               <tasks name="sling-start" if="sling.start">
                 <mkdir dir="working"/>
-                <java classname="org.apache.sling.launchpad.app.Main"
-                  fork="true" spawn="true"
-                  dir="working"
-                  classpathref="maven.dependency.classpath">
+                <java classname="org.apache.sling.launchpad.app.Main" fork="true" spawn="true" dir="working" classpathref="maven.dependency.classpath">
                   <jvmarg value="-Xdebug"/>
                   <jvmarg value="-Xnoagent"/>
                   <jvmarg value="-Xrunjdwp:transport=dt_socket,address=9001,server=y,suspend=n"/>
@@ -68,9 +65,7 @@
             <phase>post-integration-test</phase>
             <configuration>
               <tasks name="sling-stop" if="sling.stop">
-                <java classname="org.apache.sling.launchpad.app.Main"
-                  fork="true"
-                  classpathref="maven.dependency.classpath">
+                <java classname="org.apache.sling.launchpad.app.Main" fork="true" classpathref="maven.dependency.classpath">
                   <arg value="stop"/>
                 </java>
               </tasks>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-  <!--
+<!--
     * Licensed to the Sakai Foundation (SF) under one * or more contributor license agreements. See
     the NOTICE file * distributed with this work for additional information * regarding copyright
     ownership. The SF licenses this file * to you under the Apache License, Version 2.0 (the *
@@ -10,13 +10,12 @@
     implied. See the License for the * specific language governing permissions and limitations under
     the License.
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.sakaiproject.nakamura</groupId>
     <artifactId>base</artifactId>
-    <version>1.4.0</version>
+    <version>1.4.1-SNAPSHOT</version>
   </parent>
   <artifactId>org.sakaiproject.nakamura.migratesparseuuid</artifactId>
   <packaging>bundle</packaging>
@@ -49,14 +48,14 @@
     <dependency>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.solr</artifactId>
-<<<<<<< HEAD
+ HEAD
 =======
     </dependency>
     <dependency>
       <groupId>org.apache.solr</groupId>
       <artifactId>solr-core</artifactId>
       <version>4.0.1040465</version>
->>>>>>> af3a239063d29d8cecf04b8e15c421889d5c39b9
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; af3a239063d29d8cecf04b8e15c421889d5c39b9
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>

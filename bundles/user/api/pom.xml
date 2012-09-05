@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-  <!--
+<!--
     * Licensed to the Sakai Foundation (SF) under one * or more contributor license agreements. See
     the NOTICE file * distributed with this work for additional information * regarding copyright
     ownership. The SF licenses this file * to you under the Apache License, Version 2.0 (the *
@@ -15,7 +15,7 @@
   <parent>
     <groupId>org.sakaiproject.nakamura</groupId>
     <artifactId>base</artifactId>
-    <version>1.4.0</version>
+    <version>1.4.1-SNAPSHOT</version>
     <relativePath>../../../pom.xml</relativePath>
   </parent>
   <artifactId>org.sakaiproject.nakamura.user.api</artifactId>
@@ -73,7 +73,7 @@
                     <versionRange>[1.7.2,)</versionRange>
                     <goals><goal>scr</goal></goals>
                   </pluginExecutionFilter>
-                  <action><ignore /></action>
+                  <action><ignore/></action>
                 </pluginExecution>
               </pluginExecutions>
             </lifecycleMappingMetadata>

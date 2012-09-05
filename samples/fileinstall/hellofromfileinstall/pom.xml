@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-  <!--
+<!--
  * Licensed to the Sakai Foundation (SF) under one
  * or more contributor license agreements. See the NOTICE file
  * distributed with this work for additional information
@@ -20,7 +20,7 @@
   <parent>
     <artifactId>org.sakaiproject.nakamura.samples.fileinstall</artifactId>
     <groupId>org.sakaiproject.nakamura</groupId>
-    <version>1.4.0</version>
+    <version>1.4.1-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.sakaiproject.nakamura</groupId>

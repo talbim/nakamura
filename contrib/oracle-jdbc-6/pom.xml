@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<project xml:base="file:///D:/Data/csu/java/projects/sakai_nakamura/src/i2devel/1.2/xom/pom.xml"
-xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
-xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xml:base="file:///D:/Data/csu/java/projects/sakai_nakamura/src/i2devel/1.2/xom/pom.xml" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.sakaiproject.nakamura</groupId>
         <artifactId>base</artifactId>
-        <version>1.4.0</version>
+        <version>1.4.1-SNAPSHOT</version>
     </parent>
     <groupId>org.sakaiproject.nakamura</groupId>
     <artifactId>org.sakaiproject.nakamura.ojdbc6</artifactId>
