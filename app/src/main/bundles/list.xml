@@ -397,12 +397,12 @@ KERN-1187
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>javax.activation-mail</artifactId>
-      <version>1.1.1.1.4.2-1.4.0</version>
+      <version>1.1.1.1.4.2-1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.woodstox</artifactId>
-      <version>4.0.7.1.4.0</version>
+      <version>4.0.7.1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>javax.xml.bind</groupId>
@@ -445,7 +445,7 @@ KERN-1187
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.activemq</artifactId>
-      <version>5.3.0.1.4.0</version>
+      <version>5.3.0.1.4.1-SNAPSHOT</version>
     </bundle>
    </startLevel>
    <startLevel level="5">
@@ -530,7 +530,7 @@ KERN-1187
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.sakaiproject.nakamura.tika</artifactId>
-      <version>1.0.1.4.0</version>
+      <version>1.0.1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.apache.tika</groupId>
@@ -540,7 +540,7 @@ KERN-1187
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
       <artifactId>org.apache.sling.jcr.jackrabbit.server</artifactId>
-      <version>2.1.0.1.4.0</version>
+      <version>2.1.0.1.4.1-SNAPSHOT</version>
     </bundle>
     <bundle>
       <groupId>org.sakaiproject.nakamura</groupId>
