@@ -26,7 +26,7 @@
     <description> Webstart Package </description>
 
     <properties>
-       <finalhostlocation>http://source.sakaiproject.org/release/oae/1.4.0/webstart</finalhostlocation>
+       <finalhostlocation>http://source.sakaiproject.org/release/oae/1.4.1/webstart</finalhostlocation>
     </properties>
   <build>
     <plugins>
