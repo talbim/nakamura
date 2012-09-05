@@ -47,7 +47,7 @@
                             <jarWebSupport>
                                  <groupId>org.sakaiproject.nakamura</groupId>
                                  <artifactId>org.sakaiproject.nakamura.jetty-config</artifactId>
-                                 <version>1.4.1-SNAPSHOT</version>
+                                 <version>1.4.1</version>
                                  <startLevel>5</startLevel>
                            </jarWebSupport>
                            <additionalBundles>
