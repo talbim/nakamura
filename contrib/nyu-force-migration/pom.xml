@@ -19,7 +19,7 @@
   </parent>
   <artifactId>org.sakaiproject.nakamura.forcemigration</artifactId>
   <packaging>bundle</packaging>
-  <version>1.4.0</version>
+  <version>1.4.1</version>
   <name>Sakai Nakamura: Force migration</name>
   <description>Trigger an on-the-fly migration for everything in the system</description>
   <build>

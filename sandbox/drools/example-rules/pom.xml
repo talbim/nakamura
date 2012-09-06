@@ -57,7 +57,7 @@
 		<plugin>
 		  <groupId>org.sakaiproject.nakamura.maven</groupId>
   			<artifactId>drools-maven-plugin</artifactId>
-			<version>1.4.0</version>
+			<version>1.4.1</version>
   			<executions>
   			   <execution>
   			     <phase>compile</phase>

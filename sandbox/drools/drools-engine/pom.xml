@@ -100,7 +100,7 @@
     <dependency>
       <groupId>org.sakaiproject.nakamura.rules</groupId>
       <artifactId>org.sakaiproject.nakamura.rules.example</artifactId>
-      <version>1.4.0</version>
+      <version>1.4.1</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

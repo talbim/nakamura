@@ -11,8 +11,8 @@
   <artifactId>edu.nyu.launchpad</artifactId>
   <name>NYU Launchpad</name>
   <properties>
-    <nakamura.version>1.4.0</nakamura.version>
-    <ux.version>1.4.0</ux.version>
+    <nakamura.version>1.4.1</nakamura.version>
+    <ux.version>1.4.1</ux.version>
   </properties>
   <packaging>jar</packaging>
   <build>
